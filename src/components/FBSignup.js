@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import FBSDK from 'react-native-fbsdk';
+import firebase from 'react-native-firebase';
 
 const {
     LoginButton,
@@ -10,11 +11,11 @@ const {
 export class FBSignup extends Component {
     render() {
         return (
-            // <TouchableOpacity style={styles.button} onPress={(e) => this.fbAuth(e)}>
+            // <TouchableOpacity style={styles.button} onPress={this.onFBButtonPress}>
             //     <Text style={styles.buttonText}>Signup with Facebook</Text>
             // </TouchableOpacity>
             <View>
-                <LoginButton
+                {/* <LoginButton
                     publishPermissions={["publish_actions"]}
                     onLoginFinished={
                         (error, result) => {
@@ -31,11 +32,37 @@ export class FBSignup extends Component {
                             }
                         }
                     }
+                    onLogoutFinished={() => alert("logout.")} /> */}
+                <LoginButton
+                    onLoginFinished={
+                        (error, result) => {
+                            if (error) {
+                                alert("login has error: " + result.error);
+                            } else if (result.isCancelled) {
+                                alert("login is cancelled.");
+                            } else {
+                                AccessToken.getCurrentAccessToken().then(
+                                    (data) => {
+                                        const provider = firebase.auth.FacebookAuthProvider;
+                                        // provider.addScope=('email');
+                                        const credential = provider.credential(data.accessToken.toString());
+                                        firebase.auth().signInAndRetrieveDataWithCredential(credential)
+                                            .then(function (userCredential) {
+                                                console.log(JSON.stringify(userCredential));
+                                            });
+                                    }
+                                )
+                            }
+                        }
+                    }
                     onLogoutFinished={() => alert("logout.")} />
             </View>
         );
     }
 }
+
+export default FBSignup;
+
 const styles = StyleSheet.create(
     {
         button: {

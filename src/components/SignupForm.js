@@ -1,6 +1,38 @@
 import React, { Component } from 'react';
 import { View, TextInput, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
 import firebase from 'react-native-firebase';
+import FBSDK from 'react-native-fbsdk';
+
+const {
+    LoginButton,
+    AccessToken
+} = FBSDK;
+
+// export const loginFacebook = () => {
+//     return (dispatch) => {
+//         LoginManager.logInWithReadPermissions(['public_profile', 'user_friends', 'email'])
+//             .then(
+//                 (result) => {
+//                     if (result.isCancelled) {
+//                         Alert.alert('Whoops!', 'You cancelled the sign in.');
+//                     } else {
+//                         AccessToken.getCurrentAccessToken()
+//                             .then((data) => {
+//                                 const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+//                                 firebase.auth().signInWithCredential(credential)
+//                                     .then(loginUserSuccess(dispatch))
+//                                     .catch((error) => {
+//                                         loginSingUpFail(dispatch, error.message);
+//                                     });
+//                             });
+//                     }
+//                 },
+//                 (error) => {
+//                     Alert.alert('Sign in error', error);
+//                 },
+//         );
+//     };
+// };
 
 export class SignupForm extends Component {
     constructor(props) {
@@ -10,8 +42,6 @@ export class SignupForm extends Component {
             password: ''
         }
         this.handleSignup = this.handleSignup.bind(this);
-    }
-    handleSignup(event) {
         var config = {
             apiKey: "AIzaSyBxEMYQmFi3aMTyCtpuxMmWmVRtvRMasjw",
             authDomain: "fbloginwithfirebase-bd9d0.firebaseapp.com",
@@ -21,6 +51,8 @@ export class SignupForm extends Component {
             messagingSenderId: "262294182151"
         };
         firebase.initializeApp(config);
+    }
+    handleSignup(event) {
         var email = this.state.email;
         var password = this.state.password;
         firebase.auth().createUserWithEmailAndPassword(email, password);
