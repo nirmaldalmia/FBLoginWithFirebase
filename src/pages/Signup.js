@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SignupForm } from '../components/SignupForm';
+import { FBSignup } from '../components/FBSignup'
 
 export class Signup extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <SignupForm />
+                <FBSignup />
             </View>
         );
     }

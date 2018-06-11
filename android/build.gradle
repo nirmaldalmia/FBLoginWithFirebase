@@ -17,6 +17,8 @@ buildscript {
     }
 }
 
+// def versionOverrides = ["com.facebook.android:facebook-android-sdk": "4.28.0"]
+
 allprojects {
     repositories {
         google()
@@ -26,5 +28,11 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
+        mavenCentral()
     }
+    // configurations.all {
+    //     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+
+    //   def overrideVersion = versionOverrides[details.requested.group + ":" + details.requested.name]
+    // }
 }

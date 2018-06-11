@@ -19,11 +19,11 @@ export class SignupForm extends Component {
             projectId: "fbloginwithfirebase-bd9d0",
             storageBucket: "fbloginwithfirebase-bd9d0.appspot.com",
             messagingSenderId: "262294182151"
-          };
-          firebase.initializeApp(config);
-          var email=this.state.email;
-          var password=this.state.password;
-          firebase.auth().createUserWithEmailAndPassword(email, password);
+        };
+        firebase.initializeApp(config);
+        var email = this.state.email;
+        var password = this.state.password;
+        firebase.auth().createUserWithEmailAndPassword(email, password);
         Alert.alert("Your account was successfully created!");
     }
     render() {
@@ -31,13 +31,13 @@ export class SignupForm extends Component {
             <View style={styles.container}>
                 <TextInput
                     placeholder="Email"
-                    onChangeText={ (textValue) => this.setState({email: textValue})}
+                    onChangeText={(textValue) => this.setState({ email: textValue })}
                     style={styles.input}
                     underlineColorAndroid='rgba(0, 0, 0, 0)'
                     placeholderTextColor='#ffffff' />
                 <TextInput
                     placeholder="Password"
-                    onChangeText={(passwordValue) => this.setState({password: passwordValue})}
+                    onChangeText={(passwordValue) => this.setState({ password: passwordValue })}
                     style={styles.input}
                     placeholderTextColor='#ffffff'
                     secureTextEntry={true} />

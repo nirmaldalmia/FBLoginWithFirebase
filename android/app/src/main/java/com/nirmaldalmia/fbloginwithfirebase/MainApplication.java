@@ -3,10 +3,15 @@ package com.nirmaldalmia.fbloginwithfirebase;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+
+import com.facebook.FacebookSdk;
+import com.facebook.CallbackManager;
+import com.facebook.appevents.AppEventsLogger;
 
 import io.invertase.firebase.RNFirebasePackage;
 // optional packages - add/remove as appropriate
@@ -38,25 +43,16 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-        new MainReactPackage(),
-        new RNFirebasePackage(),
-        // add/remove these packages as appropriate
-        new RNFirebaseAdMobPackage(),
-        new RNFirebaseAnalyticsPackage(),
-        new RNFirebaseAuthPackage(),
-        new RNFirebaseCrashlyticsPackage(),
-        new RNFirebaseDatabasePackage(),
-        new RNFirebaseFirestorePackage(),
-        new RNFirebaseInstanceIdPackage(),
-        new RNFirebaseLinksPackage(),
-        new RNFirebaseMessagingPackage(),
-        new RNFirebaseNotificationsPackage(),
-        new RNFirebasePerformancePackage(),
-        new RNFirebaseRemoteConfigPackage(),
-        new RNFirebaseStoragePackage()
-      );
+          new MainReactPackage(), 
+          new RNFirebasePackage(),
+          // add/remove these packages as appropriate
+          new RNFirebaseAdMobPackage(), new RNFirebaseAnalyticsPackage(), new RNFirebaseAuthPackage(),
+          new RNFirebaseCrashlyticsPackage(), new RNFirebaseDatabasePackage(), new RNFirebaseFirestorePackage(),
+          new RNFirebaseInstanceIdPackage(), new RNFirebaseLinksPackage(), new RNFirebaseMessagingPackage(),
+          new RNFirebaseNotificationsPackage(), new RNFirebasePerformancePackage(), new RNFirebaseRemoteConfigPackage(),
+          new RNFirebaseStoragePackage(), new FBSDKPackage(mCallbackManager));
     }
-    
+
     @Override
     protected String getJSMainModuleName() {
       return "index";
@@ -72,5 +68,14 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    FacebookSdk.sdkInitialize(getApplicationContext());
+    // If you want to use AppEventsLogger to log events.
+    AppEventsLogger.activateApp(this);
+  }
+
+  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+
+  protected static CallbackManager getCallbackManager() {
+    return mCallbackManager;
   }
 }
