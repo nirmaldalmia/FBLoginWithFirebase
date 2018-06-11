@@ -1,4 +1,4 @@
-package com.invertase.rnfirebasestarter;
+package com.nirmaldalmia.fbloginwithfirebase;
 
 import android.app.Application;
 
